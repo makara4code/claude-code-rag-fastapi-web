@@ -1,7 +1,8 @@
 from datetime import datetime
 from decimal import Decimal
 
-from sqlalchemy import Column, Integer, String, Numeric, Date, DateTime, Text
+from sqlalchemy import Column, Integer, String, Numeric, Date, DateTime, Text, ForeignKey
+from sqlalchemy.orm import relationship
 from pgvector.sqlalchemy import Vector
 
 from app.core.database import Base
@@ -14,6 +15,7 @@ class Expense(Base):
     __tablename__ = "expenses"
 
     id = Column(Integer, primary_key=True, index=True, autoincrement=True)
+    user_id = Column(Integer, ForeignKey("users.id", ondelete="CASCADE"), nullable=False, index=True)
     category = Column(String(100), nullable=False, index=True)
     amount = Column(Numeric(10, 2), nullable=False)
     date = Column(Date, nullable=False, index=True)
@@ -23,6 +25,9 @@ class Expense(Base):
 
     # Vector embedding for RAG functionality
     embedding = Column(Vector(settings.embedding_dimension), nullable=True)
+
+    # Relationship with user
+    owner = relationship("User", back_populates="expenses")
 
     def __repr__(self):
         return f"<Expense(id={self.id}, category={self.category}, amount={self.amount}, date={self.date})>"

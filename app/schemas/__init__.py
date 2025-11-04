@@ -7,6 +7,16 @@ from app.schemas.expense import (
     ExpenseFilter,
 )
 from app.schemas.query import QueryRequest, QueryResponse
+from app.schemas.auth import (
+    UserBase,
+    UserCreate,
+    UserUpdate,
+    UserResponse,
+    UserInDB,
+    Token,
+    TokenData,
+    LoginRequest,
+)
 
 __all__ = [
     "ExpenseBase",
@@ -17,4 +27,12 @@ __all__ = [
     "ExpenseFilter",
     "QueryRequest",
     "QueryResponse",
+    "UserBase",
+    "UserCreate",
+    "UserUpdate",
+    "UserResponse",
+    "UserInDB",
+    "Token",
+    "TokenData",
+    "LoginRequest",
 ]

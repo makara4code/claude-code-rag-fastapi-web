@@ -4,7 +4,7 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from app.core.config import settings
 from app.core.database import init_db
-from app.api import expenses_router, query_router
+from app.api import auth_router, expenses_router, query_router
 
 
 @asynccontextmanager
@@ -44,6 +44,7 @@ app.add_middleware(
 )
 
 # Include routers
+app.include_router(auth_router)
 app.include_router(expenses_router)
 app.include_router(query_router)
 
@@ -56,6 +57,7 @@ async def root():
         "version": settings.api_version,
         "docs": "/docs",
         "endpoints": {
+            "auth": "/auth",
             "crud": "/expenses",
             "query": "/query",
         },

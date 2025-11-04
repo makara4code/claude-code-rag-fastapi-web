@@ -24,6 +24,11 @@ class Settings(BaseSettings):
     api_version: str = "1.0.0"
     api_description: str = "RAG system for querying personal expense data using natural language"
 
+    # Security settings
+    secret_key: str = "your-secret-key-change-this-in-production-min-32-characters"
+    algorithm: str = "HS256"
+    access_token_expire_minutes: int = 30
+
     model_config = SettingsConfigDict(env_file=".env", case_sensitive=False)
 
     @property
